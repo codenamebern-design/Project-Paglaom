@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grace & Truth — Living Bible App</title>
+  <meta name="description" content="Real-time, accurate scripture direct from the internet for spiritual healing, repentance, and peace." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Top Navigation / Header -->
+    <header class="header-wrapper">
+      <div class="top-bar">
+        <div class="brand">
+          <span class="brand-icon">📖</span>
+          <h1 class="brand-title">Paglaom</h1>
+        </div>
+
+        <div class="header-controls">
+          <!-- Translation Switcher -->
+          <div class="translation-wrapper">
+            <label for="translationSelect">Version:</label>
+            <select id="translationSelect" class="translation-select" title="Select Bible Translation">
+              <option value="web" selected>WEB (World English Bible)</option>
+              <option value="kjv">KJV (King James Version)</option>
+              <option value="bbe">BBE (Bible in Basic English)</option>
+              <option value="webbe">WEB-BE (British Edition)</option>
+              <option value="oeb-us">OEB (Open English Bible)</option>
+              <option value="clem-vulgate">Latin Vulgate</option>
+            </select>
+          </div>
+
+          <!-- Saved Verses Modal Trigger -->
+          <button id="savedVersesBtn" class="control-btn" title="View Saved Verses">
+            ⭐ Saved <span id="savedBadge" class="badge-count" style="display: none;">0</span>
+          </button>
+
+          <!-- Light/Dark Mode Toggle -->
+          <button id="themeToggleBtn" class="control-btn" title="Toggle Light/Dark Theme">
+            🌙 Dark
+          </button>
+        </div>
+      </div>
+
+      <!-- Tagline / Spiritual Call -->
+      <div class="hero-tagline">
+        <h2>Did you sin today? Feeling distant from God?</h2>
+        <p>Find real-time, accurate scripture from the Internet with biblical wisdom and guided prayers to restore your heart.</p>
+      </div>
+    </header>
+
+    <!-- Search & Quick Navigation Bar -->
+    <section class="search-section">
+      <div class="search-bar-row">
+        <div class="search-input-wrapper">
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Search any passage (e.g., John 3:16, Romans 8:28, Psalm 23)..."
+            autocomplete="off"
+          />
+          <button id="clearSearchBtn" class="clear-btn" title="Clear search">×</button>
+        </div>
+        <button id="searchBtn" class="btn-primary">
+          <span>🔍</span> Search Scripture
+        </button>
+        <button id="randomBtn" class="btn-secondary" title="Get an inspired random verse">
+          <span>🎲</span> Inspire Me
+        </button>
+      </div>
+
+      <!-- Quick Chips -->
+      <div class="quick-chips-row">
+        <span class="chips-label">Popular:</span>
+        <button class="chip-btn" data-verse="John 3:16">John 3:16</button>
+        <button class="chip-btn" data-verse="Psalm 23:1-4">Psalm 23</button>
+        <button class="chip-btn" data-verse="Romans 8:28">Romans 8:28</button>
+        <button class="chip-btn" data-verse="Philippians 4:6-7">Philippians 4:6-7</button>
+        <button class="chip-btn" data-verse="Proverbs 3:5-6">Proverbs 3:5-6</button>
+        <button class="chip-btn" data-verse="Isaiah 40:31">Isaiah 40:31</button>
+        <button class="chip-btn" data-verse="Matthew 11:28-30">Matthew 11:28-30</button>
+        <button class="chip-btn" data-verse="Joshua 1:9">Joshua 1:9</button>
+      </div>
+    </section>
+
+    <!-- Spiritual Struggles & Topics Section -->
+    <section class="topic-navigator-section">
+      <div class="categories-tabs">
+        <button class="category-pill active" data-category="all">✨ All Topics</button>
+        <button class="category-pill" data-category="sins">🛡️ 7 Sins & Temptations</button>
+        <button class="category-pill" data-category="emotions">🕊️ Emotions & Heart</button>
+        <button class="category-pill" data-category="wisdom">💡 Wisdom & Daily Walk</button>
+      </div>
+
+      <div class="topic-grid" id="topicGrid">
+        <!-- 7 Sins -->
+        <button class="topic-btn active" data-key="pride" data-category="sins" onclick="selectTopic('pride', true)">
+          <span class="topic-btn-icon">👑</span>
+          <span class="topic-btn-label">Pride</span>
+        </button>
+        <button class="topic-btn" data-key="lust" data-category="sins" onclick="selectTopic('lust', true)">
+          <span class="topic-btn-icon">🔥</span>
+          <span class="topic-btn-label">Lust</span>
+        </button>
+        <button class="topic-btn" data-key="sloth" data-category="sins" onclick="selectTopic('sloth', true)">
+          <span class="topic-btn-icon">⏳</span>
+          <span class="topic-btn-label">Sloth</span>
+        </button>
+        <button class="topic-btn" data-key="envy" data-category="sins" onclick="selectTopic('envy', true)">
+          <span class="topic-btn-icon">👀</span>
+          <span class="topic-btn-label">Envy</span>
+        </button>
+        <button class="topic-btn" data-key="wrath" data-category="sins" onclick="selectTopic('wrath', true)">
+          <span class="topic-btn-icon">⚡</span>
+          <span class="topic-btn-label">Wrath</span>
+        </button>
+        <button class="topic-btn" data-key="gluttony" data-category="sins" onclick="selectTopic('gluttony', true)">
+          <span class="topic-btn-icon">🍷</span>
+          <span class="topic-btn-label">Gluttony</span>
+        </button>
+        <button class="topic-btn" data-key="greed" data-category="sins" onclick="selectTopic('greed', true)">
+          <span class="topic-btn-icon">💰</span>
+          <span class="topic-btn-label">Greed</span>
+        </button>
+
+        <!-- Emotions & Struggles -->
+        <button class="topic-btn" data-key="anxiety" data-category="emotions" onclick="selectTopic('anxiety', true)">
+          <span class="topic-btn-icon">🌧️</span>
+          <span class="topic-btn-label">Anxiety</span>
+        </button>
+        <button class="topic-btn" data-key="fear" data-category="emotions" onclick="selectTopic('fear', true)">
+          <span class="topic-btn-icon">🛡️</span>
+          <span class="topic-btn-label">Fear</span>
+        </button>
+        <button class="topic-btn" data-key="grief" data-category="emotions" onclick="selectTopic('grief', true)">
+          <span class="topic-btn-icon">💔</span>
+          <span class="topic-btn-label">Grief</span>
+        </button>
+        <button class="topic-btn" data-key="forgiveness" data-category="emotions" onclick="selectTopic('forgiveness', true)">
+          <span class="topic-btn-icon">🕊️</span>
+          <span class="topic-btn-label">Forgiveness</span>
+        </button>
+        <button class="topic-btn" data-key="loneliness" data-category="emotions" onclick="selectTopic('loneliness', true)">
+          <span class="topic-btn-icon">🕯️</span>
+          <span class="topic-btn-label">Loneliness</span>
+        </button>
+        <button class="topic-btn" data-key="peace" data-category="emotions" onclick="selectTopic('peace', true)">
+          <span class="topic-btn-icon">🌿</span>
+          <span class="topic-btn-label">Peace</span>
+        </button>
+        <button class="topic-btn" data-key="gratitude" data-category="emotions" onclick="selectTopic('gratitude', true)">
+          <span class="topic-btn-icon">☀️</span>
+          <span class="topic-btn-label">Gratitude</span>
+        </button>
+
+        <!-- Wisdom & Daily Walk -->
+        <button class="topic-btn" data-key="guidance" data-category="wisdom" onclick="selectTopic('guidance', true)">
+          <span class="topic-btn-icon">🧭</span>
+          <span class="topic-btn-label">Guidance</span>
+        </button>
+        <button class="topic-btn" data-key="faith" data-category="wisdom" onclick="selectTopic('faith', true)">
+          <span class="topic-btn-icon">⚓</span>
+          <span class="topic-btn-label">Faith</span>
+        </button>
+        <button class="topic-btn" data-key="love" data-category="wisdom" onclick="selectTopic('love', true)">
+          <span class="topic-btn-icon">❤️</span>
+          <span class="topic-btn-label">Love</span>
+        </button>
+        <button class="topic-btn" data-key="patience" data-category="wisdom" onclick="selectTopic('patience', true)">
+          <span class="topic-btn-icon">🌱</span>
+          <span class="topic-btn-label">Patience</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Main Scripture & Guidance Display -->
+    <main class="display-card" id="displayCard">
+      <!-- Header -->
+      <div class="card-header-row">
+        <div>
+          <span class="topic-badge" id="topicBadge">👑 Pride & Arrogance</span>
+          <h2 class="topic-title" id="topicTitle">Pride & Arrogance</h2>
+        </div>
+
+        <div class="header-badges">
+          <span id="sourceBadge" class="source-badge source-live">
+            ✓ Verified Live from Internet API
+          </span>
+        </div>
+      </div>
+
+      <!-- Core Scripture Box -->
+      <div class="verse-box" id="verseBox">
+        <div class="verse-meta-row">
+          <span class="verse-reference" id="verseReference">Proverbs 16:18-19</span>
+          <span class="verse-translation-tag" id="verseTranslation">World English Bible</span>
+        </div>
+
+        <!-- Loading Skeleton -->
+        <div class="verse-loading" id="verseLoading">
+          <div class="skeleton-line w-80"></div>
+          <div class="skeleton-line w-60"></div>
+          <div class="skeleton-line w-40"></div>
+        </div>
+
+        <!-- Scripture Content -->
+        <div class="verse-content" id="verseContent">
+          <!-- Populated by JavaScript -->
+        </div>
+
+        <!-- Action Toolbar -->
+        <div class="verse-action-bar" id="verseActionBtns">
+          <div class="action-buttons-group">
+            <button id="speakBtn" class="action-btn" title="Listen to verse audio">
+              <span>🔊</span> Listen
+            </button>
+            <button id="copyBtn" class="action-btn" title="Copy verse to clipboard">
+              <span>📋</span> Copy
+            </button>
+            <button id="bookmarkBtn" class="action-btn" title="Save to favorites">
+              <span>☆</span> Save
+            </button>
+            <button id="shareBtn" class="action-btn" title="Share scripture">
+              <span>📤</span> Share
+            </button>
+          </div>
+
+          <!-- Font Size Adjuster -->
+          <div class="font-controls">
+            <span style="font-size: 0.8rem; color: var(--text-muted); margin-right: 0.25rem;">Text:</span>
+            <button id="fontDecreaseBtn" class="font-btn" title="Decrease font size">A-</button>
+            <button id="fontResetBtn" class="font-btn" title="Reset font size">A</button>
+            <button id="fontIncreaseBtn" class="font-btn" title="Increase font size">A+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Topic Explanations & Prayer (Hidden during raw search) -->
+      <div class="guidance-sections" id="guidanceSections">
+        <!-- What It Is -->
+        <section class="guidance-card" id="contextSection">
+          <h3 class="guidance-header">
+            <span>📖</span> Understanding the Root
+          </h3>
+          <p class="guidance-content" id="contextText"></p>
+        </section>
+
+        <!-- How to Overcome -->
+        <section class="guidance-card" id="overcomeSection">
+          <h3 class="guidance-header">
+            <span>⚔️</span> How to Overcome with God's Word
+          </h3>
+          <ul class="guidance-list" id="overcomeList"></ul>
+        </section>
+
+        <!-- Guided Prayer -->
+        <section class="guidance-card prayer-card" id="prayerSection">
+          <h3 class="guidance-header">
+            <span>🙏</span> Heartfelt Prayer
+          </h3>
+          <p class="prayer-text" id="prayerText"></p>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>Grace & Truth Bible Application • Built with scripture powered by <a href="https://bible-api.com" target="_blank" rel="noopener">bible-api.com</a></p>
+      <p>“Your word is a lamp to my feet and a light to my path.” — Psalm 119:105</p>
+    </footer>
+
+  </div>
+
+  <!-- Saved Verses Modal Dialog -->
+  <div class="modal-overlay" id="savedModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">⭐ Saved Scriptures</h3>
+        <button class="close-modal-btn" id="closeSavedModal">&times;</button>
+      </div>
+      <div class="modal-body" id="savedVersesList">
+        <!-- Populated dynamically -->
+      </div>
+      <div class="modal-footer">
+        <button id="clearAllSavedBtn" class="control-btn" style="color: #ef4444; border-color: #fca5a5;">
+          Clear All
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
